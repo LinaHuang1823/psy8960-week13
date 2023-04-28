@@ -23,7 +23,7 @@ write_csv(week13_tbl, "../data/week13.csv")
 # Read data from the data folder
 week13<-read_csv("../data/week13.csv", show_col_types = FALSE)
 
-
+#Analysis
 # Display the total number of managers
 n_managers <- sum(week13$manager_hire == "Y")
 cat("Total number of managers:", n_managers, "\n")
