@@ -25,11 +25,11 @@ week13<-read_csv("../data/week13.csv", show_col_types = FALSE)
 
 #Analysis
 # Display the total number of managers
-n_managers <- sum(week13$manager_hire == "Y")
+n_managers <- sum(!is.na(week13$manager_hire))
 cat("Total number of managers:", n_managers, "\n")
 
 # Display the total number of unique managers
-n_unique_managers <- length(unique(week13$employee_id[week13$manager_hire == "Y"]))
+n_unique_managers <- length(unique(week13$employee_id))
 cat("Total number of unique managers:", n_unique_managers, "\n")
 
 # Display a summary of the number of managers split by location, but only include those who were not originally hired as managers
@@ -47,10 +47,9 @@ years_by_performance
 
 # Display the location and ID numbers of the top 3 managers from each location, in alphabetical order by location and then descending order of test score. If there are ties, include everyone reaching rank 3.
 top_managers <- week13 %>% 
-  filter(manager_hire == "Y") %>%
   arrange(city, desc(test_score)) %>%
   group_by(city) %>%
   mutate(rank = dense_rank(desc(test_score))) %>%
   filter(rank <= 3) %>%
   arrange(city, desc(test_score))
-top_managers[, c("city", "employee_id", "test_score")]
+print(top_managers[, c("city", "employee_id", "test_score")],n = Inf)
