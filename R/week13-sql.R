@@ -24,13 +24,12 @@ week13<-read_csv("../data/week13.csv", show_col_types = FALSE)
 
 #Analysis
 #Display the total number of managers
-query1 <- "SELECT COUNT(*) AS total_managers FROM week13 WHERE manager_hire = 'Y'"
+query1 <- "SELECT COUNT(*) AS total_managers FROM week13"
 manger_num <- sqldf(query1)
 manger_num 
 
 #Display the total number of unique managers
-query2 <- "SELECT COUNT(DISTINCT employee_id) AS unique_managers FROM week13 
-WHERE manager_hire = 'Y'"
+query2 <- "SELECT COUNT(DISTINCT employee_id) AS unique_managers FROM week13"
 uni_manger_num <- sqldf(query2)
 uni_manger_num
 
@@ -52,7 +51,6 @@ FROM (
   SELECT city, employee_id, test_score,
   DENSE_RANK() OVER (PARTITION BY city ORDER BY test_score DESC) AS rank
   FROM week13
-  WHERE manager_hire = 'Y'
 ) AS ranked_managers
 WHERE rank <= 3
 ORDER BY city ASC, test_score DESC"
